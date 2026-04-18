@@ -129,14 +129,14 @@ These additions reinforce the core source-of-truth value proposition rather than
 
 Phase 1: Foundation
 
-Build the common frame, pane system, theme system, project model, file browser, Linked Analysis, diff/compare framework, validation surface, and basic CSV/FMG/archive workflows.
+- Build the common frame, pane system, theme system, project model, file browser, Linked Analysis, diff/compare framework, validation surface, and basic CSV/FMG/archive workflows.
 
 Phase 2: Domain integration
 
-Add param and text maturity, script/event integration, map inspection and compare support, richer conflict resolution, and stronger dependency views.
+- Add param and text maturity, script/event integration, map inspection and compare support, richer conflict resolution, and stronger dependency views.
 
 Phase 3: Advanced editors
 
-Expand into deeper animation, model, material, texture, Havok, and audio domains, with increasing visual tooling and tighter cross-domain analysis.
+- Expand into deeper animation, model, material, texture, Havok, and audio domains, with increasing visual tooling and tighter cross-domain analysis.
 
 ---END---
