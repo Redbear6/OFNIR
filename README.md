@@ -1,142 +1,116 @@
-OFNIR 
+# OFNIR
 
-OFNIR Design Intent and Product Scope
+OFNIR is a tactical Elden Ring modding workspace focused on **projects, comparisons, and cross-file understanding** rather than being yet another single-purpose editor. It is meant to become a project-centered source of truth where you can see how your changes in one domain affect related assets elsewhere, without juggling a dozen separate tools and notes.
 
-1. Overview
+Right now this is an early-stage, design-heavy project: the initial goal is to build a strong foundation (shell, project model, compare and validation flows) before chasing full feature parity with existing community editors.
 
-OFNIR is envisioned as a tactical, multi-pane Elden Ring modding workspace inspired by the information-rich, editor-driven feel of Arma’s Eden Editor, but adapted to the realities of Souls-format modding and current community tooling. Its purpose is to become a project-centered source of truth that helps modders understand, compare, validate, and manage interconnected assets across multiple file domains instead of relying on fragmented point tools and ad hoc notes.
+---
 
-The immediate product goal is not to replace every existing specialized utility in a single release. The better strategic objective is to build a shared frame, pane system, project model, analysis layer, and comparison workflow first, then expand through interlocking mini-apps over time. That phased approach fits the current tool ecosystem, where archive handling, maps, params, text, event scripts, animation work, and model work are often split across separate community tools and pipelines.
+## Long‑term vision (Roadmap Mile 100)
 
-2. Problem Statement
-Current Elden Ring modding workflows lack a unified “source of truth” for understanding how edits in one file domain affect related assets in another domain. Community tools are capable but fragmented: Smithbox supports major editing workflows such as maps, params, text, and model-oriented tasks; WitchyBND and related archive workflows are used for unpacking and repacking; DarkScript3 focuses on event scripting productivity; and many advanced domains still require tool-hopping or external applications. As a result, modders often cannot easily answer questions such as how a change in an event or sequence affects animation timing, linked params, text, materials, or associated assets in a holistic view. OFNIR should address that gap by organizing work around projects, relationships, comparisons, conflict detection, and cross-file visibility rather than around isolated file editors alone.
+The long‑term aim for OFNIR is to become a **multi‑game modding suite/container** built on a common “source of truth” core.
 
-3. Design Intent
+- The core concepts (project, asset, relationship, diff, validation, conflict, snapshot) are intentionally game‑agnostic.
+- Game support is provided through containers or “packs” (for example, an Elden Ring container, a Crimson Desert container) that plug into that core.
+- In the Mile 100 vision, you could load an Elden Ring container alongside a Crimson Desert container and work across both in one workspace, using the same compare, validation, and project concepts instead of juggling separate tools and mental models.
 
-The design intent is to create a tactical, high-legibility workspace that feels deliberate, modular, and operational rather than decorative. The interface should communicate confidence and technical clarity through hierarchy, panel zoning, density control, and consistent interaction rules instead of relying on terminal nostalgia or excessive visual noise. The desired emotional tone is “mission control for modding”: focused, serious, information-rich, and practical. The tactical look should support usability, not overpower it, which means careful contrast, persistent navigation, progressive disclosure, and clear separation between commentary, machine text, warnings, and editable values.
+### Game‑agnostic foundation
 
-4. UX Principles
+Even though Phase 1 targets Elden Ring first, the core should stay game‑agnostic wherever practical:
 
-a) Tactical clarity:
-The workspace should prioritize fast scanning, explicit hierarchy, and stable layout anchors. Users should be able to identify what project is active, what file is selected, what pane is authoritative, and what actions are currently available without hunting across the interface.
+- The project model (projects, assets, relationships, conflicts, validation, snapshots) should not hard‑code Elden Ring assumptions when a generic concept will do.
+- Game‑specific behavior should live in containers or modules layered on top of the shared core (for example, an “Elden Ring container” that plugs in formats, validators, and tool windows).
+- Cross‑game support later (e.g. Elden Ring + Crimson Desert in one workspace) should be a matter of loading multiple containers into the same core, not rewriting the core for each game.
 
-b) Source of truth:
-Every project should have a central structure that records file relationships, status, conflicts, and recent changes. The UI should make dependency and impact relationships visible so that edits are understood in context rather than in isolation.
+This keeps Phase 1 honest to its immediate use case while preserving a clean path to the “multi‑game modding suite/container” vision.
 
-c) Modular growth
-The product should be built as a suite-capable foundation with interlocking mini-apps rather than as a monolith. This allows the common frame, pane logic, project model, and analysis tools to mature first while domain-specific editors are added in phases.
+---
 
-d) Human-readable technicality
-The interface should remain technically literate without collapsing into all-monospace aesthetics. The current typography rule supports that: Geist Sans for the app shell, Input Sans only for Linked Analysis, Input Mono for technical fragments within that analysis context, and Geist Mono for general code or machine-oriented panels.
+## What OFNIR is (Phase 1)
 
-e) Visual and Interaction Direction
-The default visual system should use a dark tactical palette with restrained accents, clear border hierarchy, matte surfaces, and readable text. Theme presets can be provided for alternate preferences, including retro-terminal styles, but the default should prioritize readability and eye comfort over novelty.
+Phase 1 is a **foundation release**, not an “all-in-one” editor. The focus is on building a reusable workspace that other domain tools can plug into over time.
 
-f) The core layout should be multi-pane and project-oriented, with a persistent navigation rail, a main work surface, and one or more secondary panes for linked analysis, validation, references, or diff views. Panes should support move, hide, minimize, and snap behavior, with optional locking between panes so users can preserve task-specific arrangements while manipulating the broader workspace.
+Phase 1 aims to deliver:
 
-g) The interaction model should support:
+- A desktop app shell with a project-centered workspace.
+- A project model that knows about assets, relationships, and status.
+- A file browser designed for Souls-style workflows (params, text, archives, etc.).
+- Tool windows for editing, comparing, and analyzing data (dockable and floatable).
+- Compare and diff workflows that actually respect how mods get made.
+- Linked Analysis and validation surfaces that explain “what this change affects.”
+- Basic CSV/param, FMG text, and archive packaging workflows.
+- Safeguards for destructive actions, backup/export, and local-first storage.
 
-- Magnetic pane snapping and optional pane locking.
-- Collapsible and minimizable panes.
-- Pull-down menus and context menus for projects, files, tools, and field-specific actions.
-- Confirmed destructive actions, with optional user-controlled suppression for repeat confirmations.
-- Persistent filter chips and active-context indicators.
-- Split-pane comparison and diff-oriented workflows.
+If you’re looking for a drop-in replacement for every tool you already use, OFNIR will not be that in Phase 1—and that’s intentional.
 
+---
 
-5. Product Foundation
+## Roadmap at a glance
 
-The first build should focus on the foundation rather than complete editor parity for all target file types. That means the initial milestone should establish a reusable application shell and project model that every future domain editor can plug into.
+| Phase | Focus                                | Notes |
+|-------|--------------------------------------|-------|
+| Phase 1 | Foundation workspace                 | Shell, project model, file browser, tool windows, compare, Linked Analysis, validation, basic CSV/FMG/archive flows. |
+| 1.5   | Workflow accelerators                 | Drag-and-drop for projects/files/compare/imports, small reopen and quality-of-life improvements layered on top of stable flows. |
+| 2     | Domain integration and richer tooling | Deeper param/text maturity, script and map integration, stronger conflict resolution and dependency views, more advanced merge assistance. |
+| 3+    | Advanced editors and visual tooling   | Animation, model, material, texture, audio, and scene-level tooling where it makes sense to build instead of just bridge. |
 
-Foundation deliverables:
+The short version: **make the workflow work first, then make it fast, then make it deep.**
 
-- Common frame and pane system.
-- Theme and preset framework.
-- Project and file browser.
-- Pull-down and context menu structure.
-- Linked Analysis pane.
-- Comparison and diff framework.
-- Conflict detection and resolution surface.
-- Validation and warning system.
-- Local-first storage and optional cloud/AI integration points.
-- Export, backup, and destructive-action safeguards.
+---
 
+## Design intent
 
-10. Functional Scope
+OFNIR is meant to feel like “mission control for modding”: deliberate, dense, and legible rather than flashy. The UI direction emphasizes:
 
-The long-term ambition is a multi-project workspace that can unpack, inspect, compare, edit, validate, and recombine many Elden Ring asset types across local or cloud-backed workflows, with or without AI assistance depending on user choice.
- However, the functional scope should be tiered so that the most valuable shared capabilities are built before the hardest domain-specific editors.
+- Tactical clarity and stable layout anchors.
+- A workspace-first model where tools open as **tool windows**, not endless modal dialogs.
+- Clear separation between commentary, machine text, warnings, and editable values.
+- Progressive disclosure of complexity rather than dumping everything on screen at once.
 
+The product should be comfortable for long sessions and high-information work, especially around diffs and cross-file relationships.
 
-11. Core platform functions
+---
 
-Function	Purpose:
+## What this repo contains (right now)
 
-- Project management	Organize assets, metadata, status, and file relationships per project.
-- File browser	Navigate file domains, categories, and linked assets consistently.
-- Diff and compare	Compare one-to-one and one-to-many files, rows, or fields.
-- Conflict detection	Surface incompatible edits, duplicate IDs, and broken references.
-- Linked Analysis	Explain cross-file implications and relationships in context.
-- Validation	Warn about broken paths, references, merge issues, and risky edits.
-- Audit trail	Record what changed, when, and why.
-- Import/export	Save, package, archive, and restore project states.
+At this stage the repo is mostly **design and planning** material. Expect to find:
 
-These shared functions are the real foundation of the product and are more strategically important than any single domain editor in isolation.
+- `docs/ofnir-phase-1.md` – detailed Phase 1 foundation spec (workspace, flows, tool window behavior, and scope).
+- `design/` – higher-level design intent, UX principles, and roadmap notes.
 
-12. File-Domain Roadmap
-The file-domain roadmap should distinguish between domains that are realistic in early phases and those that should initially be bridged to external community tools.
+Code will arrive once the foundation spec feels solid enough to build against.
 
-a. Early-phase domains
+If you are reading this very early, treat this project as an open notebook: issues and PRs that help clarify the spec and sharpen Phase 1 are welcome.
 
-- CSV / params / rows / fields	Structured editing, row highlighting, field compare, bulk edit, conflict resolution	Strong early value because params are central to many workflows.
-- FMG / FMG.DCX	View, edit, compare, search, and merge text resources	Text workflows are comparatively approachable and high-impact.
-- DCX / BND / TPF handling	Unpack, repack, dependency awareness, archive compare	DCX is a wrapper/compression format, so the product should emphasize packaging workflows rather than “editing DCX” directly.
-- JSON / Python / general notes	Internal editing, note-taking, helper scripts, metadata	Useful as glue between specialized systems.
-- Diff / validation layers	Reusable across all domains	High leverage feature set.
+---
 
-b. Mid-phase domains
+## License
 
-- EMEVD / script workflows	Script compare, edit support, external-tool bridge, dependency context	DarkScript3 remains an important ecosystem reference.
-- MSB / map workflows	Inspection, compare, relationship mapping, bridge into map editing workflows	Smithbox already provides significant map support.
-- TAE workflows	Side-by-side compare, event sequence inspection, linked references	Animation workflows are valuable but more specialized.
-- FLVER / model pipelines	View relationships, compare assets, bridge to Blender-centered editing	FLVER remains the core model format in Souls workflows.
-- TPF / DDS texture workflows	Viewer, unpack/repack, compare, replace, export	Strong utility value in project context.
+This project is licensed under the **GNU General Public License (GPL)**. See the `LICENSE` file for details.
 
-c. Late-phase or bridge-first domains
+In plain language: you are free to use, study, share, and modify the software under the terms of the GPL, but derivative works must remain under a compatible copyleft license.
 
-- HKS / HKX	Inspect, relate, bridge, partial editing where practical	Full authoring may be difficult and should be phased carefully.
-- Audio banks and FMOD assets	Inspect, compare, package, bridge	Specialized tooling and format complexity suggest later-phase work.
-- Full 3D visual editor	Shared scene view, dependency graph, preview, external bridge first	Ambitious and best treated as a long-term subsystem.
-- Material systems (.mtd, .matbin)	Inspect references, compare, map to FLVER/material relationships	Particularly relevant for Elden Ring’s material workflows.
+---
 
-13. Recommended Functional Additions
+## Contributing
 
-The following additions would make the product substantially stronger:
+If you’re interested in helping:
 
-- Dependency graph view for cross-file references.
-- Project snapshotting before destructive edits.
-- Merge assistant for conflicting mods.
-- Rule-based validation checks for duplicate IDs, invalid paths, and broken references.
-- External tool launch hooks for workflows better handled in Smithbox, WitchyBND, Blender, or DarkScript3.
-- AI assistance as an optional advisor, not a forced workflow.
-- Bulk edit queues with preview and rollback.
-- “Why did this change?” traceability tied to an audit log.
-- Search that spans projects, files, rows, fields, and linked references.
+- You can open issues to discuss:
+  - workflow pain points in current Elden Ring modding,
+  - ideas for compare, validation, and conflict resolution,
+  - external tools that OFNIR should integrate with instead of replacing.
+- You can propose changes to the Phase 1 spec in `docs/ofnir-phase-1.md` with PRs focused on:
+  - clarifying behavior,
+  - reducing scope creep,
+  - or tightening acceptance criteria.
 
-These additions reinforce the core source-of-truth value proposition rather than pulling focus toward isolated novelty features.
+Implementation work will follow once the foundation is stable enough that writing code feels like executing a plan, not rewriting the plan every week.
 
-14. Phased Delivery
+---
 
-Phase 1: Foundation
+## Status
 
-- Build the common frame, pane system, theme system, project model, file browser, Linked Analysis, diff/compare framework, validation surface, and basic CSV/FMG/archive workflows.
+Early design phase, no stable builds yet.
 
-Phase 2: Domain integration
-
-- Add param and text maturity, script/event integration, map inspection and compare support, richer conflict resolution, and stronger dependency views.
-
-Phase 3: Advanced editors
-
-- Expand into deeper animation, model, material, texture, Havok, and audio domains, with increasing visual tooling and tighter cross-domain analysis.
-
----END---
+If you want to follow progress, watch this repo and keep an eye on updates to the Phase 1 spec and roadmap. As soon as there is something testable, it will be called out clearly in this README.
